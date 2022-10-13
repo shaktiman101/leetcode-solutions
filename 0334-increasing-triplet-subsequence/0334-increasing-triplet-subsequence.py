@@ -12,8 +12,10 @@ class Solution:
             elif num <= second:
                 second = num
             else:
-                third = num
-        
-        if first < second < third:
-            return True
+                # third = num
+                return True
         return False
+        
+        # if first < second < third:
+        #     return True
+        # return False
