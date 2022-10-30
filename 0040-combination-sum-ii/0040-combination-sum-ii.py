@@ -37,11 +37,9 @@ class Solution:
             tmp.append(candidates[i])
             solve(i+1, target, tmp)
             
-                
-            target += candidates[i]
-            tmp.pop()
             while i < n-1 and candidates[i] == candidates[i+1]:
                 i += 1
+            target += tmp.pop() #candidates[i]
             
             solve(i+1, target, tmp)
 
