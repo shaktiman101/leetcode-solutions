@@ -1,5 +1,22 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates = sorted(candidates)
+        n, res = len(candidates), []
+        
+        def solve(idx, subset, total):
+            if total == target:
+                res.append(subset)
+                return
+            for i in range(idx, n):
+                if i > idx and candidates[i] == candidates[i-1]:
+                    continue
+                if total+candidates[i] > target:
+                    return
+                solve(i+1, subset+[candidates[i]], total+candidates[i])
+                
+        solve(0, [], 0)
+        return res
+            
 #         ans, subset = [], []
 #         nums = candidates
 #         nums.sort()
@@ -49,22 +66,23 @@ class Solution:
     
 #         # overall TC: O(nlogn) + O(2**n *(k+t))
 
-        candidates = sorted(candidates)
-        res, n = [], len(candidates)
+#         candidates = sorted(candidates)
+#         res, n = [], len(candidates)
         
-        def solve(idx, target, tmp):
-            if target == 0:
-                res.append(tmp)
-            # if target < 0 or i >= n or candidates[i] > target:
-            #     return
+#         def solve(idx, target, tmp):
+#             if target == 0:
+#                 res.append(tmp)
+#             # if target < 0 or i >= n or candidates[i] > target:
+#             #     return
             
-            for i in range(idx, n):
-                if i > idx and candidates[i] == candidates[i-1]:
-                    continue
-                if candidates[i] > target:
-                    break
-                solve(i+1, target-candidates[i], tmp+[candidates[i]])
+#             for i in range(idx, n):
+#                 if i > idx and candidates[i] == candidates[i-1]:
+#                     continue
+#                 if candidates[i] > target:
+#                     break
+#                 solve(i+1, target-candidates[i], tmp+[candidates[i]])
             
-        solve(0, target, [])
-        return res
+#         solve(0, target, [])
+#         return res
+
         
