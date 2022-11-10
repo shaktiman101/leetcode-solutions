@@ -1,6 +1,19 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # bottom-up solution
+        # bottom-up 
+        n = len(nums)
+        prev2, prev = 0, nums[0]
+        for i in range(1,n):
+            rob = nums[i]
+            if i > 1:
+                rob += prev2
+            not_rob = prev
+            curr = max(rob, not_rob)
+            prev2, prev = prev, curr
+        return prev
+        
+        
+        # bottom-up solution: SC: O(n) -> to store dp array
         n = len(nums)
         dp = [0]*n
         dp[0] = nums[0]
