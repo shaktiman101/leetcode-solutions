@@ -1,6 +1,23 @@
 from collections import deque
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
+        # if m == 1 or n == 1:
+        #     return 1
+        # space optimized bottom up solution
+        prev_row = [1]*n
+        curr_row = [0]*n
+        curr_row[0] = 1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                w1 = prev_row[j]
+                w2 = curr_row[j-1]
+                curr_row[j] = w1+w2
+            prev_row = curr_row
+        return prev_row[-1]
+        
+        
+        # Bottom-up
         dp = [[0]*n for _ in range(m)]
         dp[0][0] = 1
         
@@ -16,6 +33,7 @@ class Solution:
                 dp[i][j] = w1 + w2
         return dp[m-1][n-1]
                 
+        # Top-down
         dp = [[0]*n for _ in range(m)]
         dp[0][0] = 1
         
