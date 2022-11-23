@@ -15,12 +15,11 @@ class Solution:
             dp[0][j] = 1
                 
         for i in range(1, m):
-            for j in range(1, n):                    
-                w1, w2 = 0, 0
+            for j in range(1, n):
                 if obstacleGrid[i][j] == 0:
                     w1 = dp[i-1][j]
                     w2 = dp[i][j-1]
-                dp[i][j] = w1 + w2
+                    dp[i][j] = w1 + w2
         return dp[m-1][n-1]
     
     
