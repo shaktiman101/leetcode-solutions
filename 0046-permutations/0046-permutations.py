@@ -1,7 +1,17 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
-        res = []
+        ans = [[]]
+        for i in range(n):
+            tmp = []
+            for subset in ans:
+                for j in range(len(subset)+1):
+                    tmp.append(subset[:j]+[nums[i]]+subset[j:])
+            ans = tmp #.copy()
+        # print(ans)
+        return ans
+                
+        
         
 #         def solve(nums, tmp, visited):
 #             if len(visited) == n:
@@ -16,6 +26,9 @@ class Solution:
         
 #         solve(nums, [], set())
 #         return res
+
+        n = len(nums)
+        res = []
 
         def solve2(nums, idx):
             if idx == n:
