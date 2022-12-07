@@ -11,13 +11,12 @@ class Solution:
         def solve(root):
             if not root:
                 return
-            #print(root.val)
-            if (root.val >= low) and (root.val <= high):
+            if root.val >= low and root.val <= high:
                 nonlocal ans
-                #print(ans)
                 ans += root.val
-                
-            solve(root.left)
-            solve(root.right)
+            if root.val >= low:
+                solve(root.left)
+            if root.val <= high:
+                solve(root.right)
         solve(root)
         return ans
