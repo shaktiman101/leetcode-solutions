@@ -21,9 +21,6 @@ class Solution:
             if max_ != float('-inf'):
                 ans = max(ans, abs(root.val-max_))
             
-            # print("root.val=",root.val, " ans =",ans)
-            # print("left_min=",left_min, "left_max=",left_max)
-            # print("right_min=",right_min, "right_max=",right_max)
             return min(left_min, right_min, root.val), max(left_max, right_max, root.val)
                        
         func(root)
