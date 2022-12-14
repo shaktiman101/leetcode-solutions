@@ -20,11 +20,22 @@ class Solution:
 #         return min(A[len(A) - 1])
 
         # bottom-up: tabulation
-        # n = len(matrix)
-        # dp = [[0]*n for _ in range(n)]
-        # for i in range(n):
-        #     for j in range(n):
-        #         pass
+        n = len(matrix)
+        dp = [[0]*n for _ in range(n)]
+        for j in range(n):
+            dp[0][j] = matrix[0][j]
+            
+        for i in range(1,n):
+            for j in range(n):
+                n1 = dp[i-1][j]
+                n2 = float('inf')
+                if j >= 1:
+                    n2 = dp[i-1][j-1]
+                n3 = float('inf')
+                if j < n-1:
+                    n3 = dp[i-1][j+1]
+                dp[i][j] = matrix[i][j] + min(n1, n2, n3)
+        return min(dp[-1])
         
         # top-down: memoization solution
         n = len(matrix)
@@ -40,8 +51,6 @@ class Solution:
             n2 = solve(row-1, col-1)
             n3 = solve(row-1, col+1)
             dp[row][col] = matrix[row][col]+ min(n1, n2, n3)
-            # if not(n1 == float('inf') and n2 == float('inf') and n3 == float('inf')):
-                # dp[row][col] += min(n1, n2, n3)
             return dp[row][col]
             
         min_ = float('inf')
