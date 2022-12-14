@@ -19,7 +19,13 @@ class Solution:
 #         # We can just take the min of the bottow row to get the smallest overall path sum 
 #         return min(A[len(A) - 1])
 
-
+        # bottom-up: tabulation
+        # n = len(matrix)
+        # dp = [[0]*n for _ in range(n)]
+        # for i in range(n):
+        #     for j in range(n):
+        #         pass
+        
         # top-down: memoization solution
         n = len(matrix)
         dp = [[0]*n for _ in range(n)]
@@ -33,9 +39,9 @@ class Solution:
             n1 = solve(row-1, col)
             n2 = solve(row-1, col-1)
             n3 = solve(row-1, col+1)
-            dp[row][col] = matrix[row][col]
-            if not(n1 == float('inf') and n2 == float('inf') and n3 == float('inf')):
-                dp[row][col] += min(n1, n2, n3)
+            dp[row][col] = matrix[row][col]+ min(n1, n2, n3)
+            # if not(n1 == float('inf') and n2 == float('inf') and n3 == float('inf')):
+                # dp[row][col] += min(n1, n2, n3)
             return dp[row][col]
             
         min_ = float('inf')
