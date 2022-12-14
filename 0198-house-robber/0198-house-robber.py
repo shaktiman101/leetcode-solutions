@@ -1,6 +1,6 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # bottom-up 
+        # bottom-up: TC: O(n); SC: O(1)
         n = len(nums)
         prev2, prev = 0, nums[0]
         for i in range(1,n):
@@ -13,7 +13,7 @@ class Solution:
         return prev
         
         
-        # bottom-up solution: SC: O(n) -> to store dp array
+        # bottom-up solution: TC: O(n); SC: O(n) -> to store dp array
         n = len(nums)
         dp = [0]*n
         dp[0] = nums[0]
@@ -28,7 +28,7 @@ class Solution:
         return dp[n-1]
         
         
-        # top-down: memoization
+        # top-down - memoization: TC: O(n); SC: O(n)(to store dp array) + O(n) recursive stack
         n = len(nums)
         dp = [0]*n
         def solve(idx):
@@ -46,11 +46,13 @@ class Solution:
         return solve(n-1)
     
     
-        # recursive solution
+        # recursive solution: TC: O(2**n); SC: O(n) recursive stack
         n = len(nums)
         def solve(idx):
-            if idx < 0:
-                return 0
+            # if idx < 0:
+            #     return 0
+            if idx == 0:
+                return nums[0]
             rob = nums[idx] 
             if idx > 1:
                 rob += solve(idx-2)
