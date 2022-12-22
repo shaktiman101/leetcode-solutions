@@ -7,13 +7,16 @@ class Solution:
         for i in range(n):
             if not visited[i]:
                 count += 1
-                q = deque([i])
+                # q = deque([i])
+                stack = [i]
                 
-                while q:
-                    city = q.popleft()
+                while stack:
+                    # city = q.popleft()
+                    city = stack.pop()
                     visited[city] = True
                     for adj_city in range(n):
                         if isConnected[city][adj_city] == 1 and not visited[adj_city]:
-                            q.append(adj_city)
+                            # q.append(adj_city)
+                            stack.append(adj_city)
         return count
         
