@@ -1,0 +1,19 @@
+from collections import deque
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        n, count = len(isConnected), 0
+        visited = [False]*n
+        
+        for i in range(n):
+            if not visited[i]:
+                count += 1
+                q = deque([i])
+                
+                while q:
+                    city = q.popleft()
+                    visited[city] = True
+                    for adj_city in range(n):
+                        if isConnected[city][adj_city] == 1 and not visited[adj_city]:
+                            q.append(adj_city)
+        return count
+        
