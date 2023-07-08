@@ -1,33 +1,24 @@
 import heapq
-
 class Solution:
-    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
-        adj_list = [[] for _ in range(n)]
-        for i, edge in enumerate(edges):
-            adj_list[edge[0]].append((succProb[i], edge[1]))
-            adj_list[edge[1]].append((succProb[i], edge[0]))
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
+        adj = [[] for _ in range(n)]
+        for i, src_dst in enumerate(edges):
+            src, dst = src_dst
+            adj[src].append((succProb[i], dst))
+            adj[dst].append((succProb[i], src))
             
-        max_prob = [float('-inf') for _ in range(n)]
+        heap = [(-1, start)]
+        heapq.heapify(heap)
+        prob = [0]*n
+        prob[start] = 1
         
-        prob_heap = []
-        heapq.heapify(prob_heap)
-        heapq.heappush(prob_heap, (-1, start_node))
-        
-        while prob_heap:
-            prob, node = heapq.heappop(prob_heap)
-            prob *= -1
-            
-            # if prob > max_prob[node]:
-            #     max_prob[node] = prob
-                
-            for adj_prob, adj_node in adj_list[node]:
-                if prob*adj_prob > max_prob[adj_node]:
-                    max_prob[adj_node] = prob*adj_prob
-                    heapq.heappush(prob_heap, (-prob*adj_prob, adj_node))
-                    
-        if max_prob[end_node] == float('-inf'):
-            return 0.0
-        return max_prob[end_node]
-                
-            
-        
+        while heap:
+            curr_prob, curr_node = heapq.heappop(heap)
+            curr_prob *= -1
+            for adj_prob, adj_node in adj[curr_node]:
+                tmp_prob = curr_prob * adj_prob
+                if tmp_prob > prob[adj_node]:
+                    prob[adj_node] = tmp_prob
+                    heapq.heappush(heap, (-tmp_prob, adj_node))
+        # print(prob)
+        return prob[end]
