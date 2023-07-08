@@ -17,11 +17,12 @@ class Solution:
             prob, node = heapq.heappop(prob_heap)
             prob *= -1
             
-            if prob > max_prob[node]:
-                max_prob[node] = prob
+            # if prob > max_prob[node]:
+            #     max_prob[node] = prob
                 
             for adj_prob, adj_node in adj_list[node]:
                 if prob*adj_prob > max_prob[adj_node]:
+                    max_prob[adj_node] = prob*adj_prob
                     heapq.heappush(prob_heap, (-prob*adj_prob, adj_node))
                     
         if max_prob[end_node] == float('-inf'):
