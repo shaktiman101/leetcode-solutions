@@ -1,56 +1,50 @@
 #User function Template for python3
-import heapq
+
 class Solution:
     
     #Function to find sum of weights of edges of the Minimum Spanning Tree.
     def spanningTree(self, V, adj):
-        # heap = [(0, 0)]
-        # heapq.heapify(heap)
         
-        # def is_cycle(node):
-        #     pass
+        edges = []
+        for node in range(V):
+            for adj_node, adj_weight in adj[node]:
+                edges.append((adj_weight, node, adj_node))
         
-        # span_weight = 0
-        # while heap:
-        #     weight, node = heapq.heappop(heap)
-        #     if not is_cycle(node):
-        #         span_weight += weight
-        #         for adj_node, adj_weight in adj[node]:
-        #             heapq.heappush(heap, (adj_weight, adj_node))
-        # return span_weight
+        edges = sorted(edges, key=lambda x: x[0])
         
-        # adj_list = [[] for _ in range(V)]
-        # for u, v, w in adj:
-        #     adj_list[u].append((v, w))
-        #     adj_list[v].append((u, w))
+        parent = [i for i in range(V)]
+        size = [1 for _ in range(V)]
+        
+        # mst_edges = []
+        mst_weight = 0
+        
+        def find_uparent(node):
+            if node == parent[node]:
+                return node
+            parent[node] = find_uparent(parent[node])
+            return parent[node]
+    
+        def union(u, v):
+            pu = find_uparent(u)
+            pv = find_uparent(v)
+            if pu == pv:
+                return
             
-        heap = []
-        heapq.heapify(heap)
-        # heapq.heappush(heap, (0, 0, -1))    # edge_weight, curr_node, parent_node
-        heapq.heappush(heap, (0, 0))
-        
-        visited = [False]*V
-        mst_edges = []
-        mst_weight, edge_count = 0, 0
-        
-        while heap: # and edge_count < V-1:
-            # weight, curr_node, parent_node = heapq.heappop(heap)
-            weight, curr_node = heapq.heappop(heap)
-            if visited[curr_node]:
-                continue
-            # if parent_node != -1 and not visited[curr_node]:
-                # mst_edges.append((parent_node, curr_node))
-                # edge_count += 1
-                
-            visited[curr_node] = True
+            nonlocal mst_weight
             mst_weight += weight
-                
-                
             
-            for adj_node, adj_weight in adj[curr_node]:
-                if not visited[adj_node]:
-                    heapq.heappush(heap, (adj_weight, adj_node))
-                    
+            # nonlocal mst_edges
+            # mst_edges.append((u, v))
+            if size[pu] > size[pv]:
+                parent[pv] = pu
+                size[pu] += size[pv]
+            else:
+                parent[pu] = pv
+                size[pv] += size[pu]
+            
+        for weight, u, v in edges:
+            union(u, v)
+        
         return mst_weight
 
 
