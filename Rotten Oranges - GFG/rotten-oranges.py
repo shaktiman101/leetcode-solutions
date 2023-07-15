@@ -26,7 +26,7 @@ class Solution:
                 tmpx, tmpy = x+delx, y+dely
                 if tmpx>=0 and tmpx<n and tmpy>=0 and tmpy<m and \
                 grid[tmpx][tmpy]==1:
-                    grid[tmpx][tmpy] = 3
+                    grid[tmpx][tmpy] = 0
                     queue.append((tmpx, tmpy, time+1))
         #     if time:
         #         global_time = min(time, global_time)
