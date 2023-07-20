@@ -20,10 +20,10 @@ class Solution:
             # if dist < shortest_dist[]
             
             for adj_node, adj_weight in adj[node]:
-                if not path_visited[adj_node]:
-                    if dist+adj_weight<=shortest_dist[adj_node]:
-                        shortest_dist[adj_node] = dist+adj_weight
-                        dfs(adj_node, dist+adj_weight)
+                # if not path_visited[adj_node]:
+                if dist+adj_weight<=shortest_dist[adj_node]:
+                    shortest_dist[adj_node] = dist+adj_weight
+                    dfs(adj_node, dist+adj_weight)
                     # dist+adj_weight < shortest_dist[adj_node]:
                     # shortest_dist[adj_node] = dist+adj_weight
                     
