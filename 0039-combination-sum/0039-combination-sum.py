@@ -33,13 +33,11 @@ class Solution:
                 target -= candidates[idx]
                 tmp.append(candidates[idx])
                 unique_comb(idx, target, tmp)
-                
-                # not-take
                 target += candidates[idx]
                 tmp.pop()
-                unique_comb(idx-1, target, tmp)
-            else:
-                unique_comb(idx-1, target, tmp)
+            # else:
+            # not-take
+            unique_comb(idx-1, target, tmp)
             
             
         
