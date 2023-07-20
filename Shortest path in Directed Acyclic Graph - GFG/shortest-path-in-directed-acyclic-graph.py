@@ -8,21 +8,16 @@ class Solution:
         shortest_dist = [float('inf')]*n
         shortest_dist[0] = 0
         adj = [[] for _ in range(n)]
-        # visited = [False]*n
-        path_visited = [False]*n
         
         for u, v, w in edges:
             adj[u].append((v, w))
             
         def dfs(node, dist):
-            # path_visited[node] = True
-            
             for adj_node, adj_weight in adj[node]:
                 if dist+adj_weight < shortest_dist[adj_node]:
                     shortest_dist[adj_node] = dist+adj_weight
                     dfs(adj_node, dist+adj_weight)
                     
-            # path_visited[node] = False
         
         dfs(0, 0)
         for i in range(n):
@@ -30,12 +25,6 @@ class Solution:
                 shortest_dist[i] = -1
                 
         return shortest_dist
-        
-        # queue = deque([(0,0)])
-        # while queue:
-        #     node, dist = queue.popleft()
-            
-        #     for adj_node, adj_weight in adj[node]:
                 
 
 
