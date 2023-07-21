@@ -1,7 +1,7 @@
 from collections import deque
 class Solution:
 	def wordLadderLength(self, startWord, targetWord, wordList):
-	    unique_wordList = set(wordList)
+	    unique_wordList = set(wordList)     # TC: O(n), SC: O(n)
 	    
 	    if not targetWord in unique_wordList:
 	        return 0
@@ -10,7 +10,7 @@ class Solution:
 	        
 	    
 		n = len(wordList)
-		adj = [[] for _ in range(n)]
+		adj = [[] for _ in range(n)]                    # TC: O(n), SC:O(n)
 		word_node_mapping, node_word_mapping = {}, {}
 		word_node_mapping[startWord] = 0
 		node_word_mapping[0] = startWord
@@ -23,10 +23,7 @@ class Solution:
 		    node_word_mapping[node_idx] = word
 		    node_idx += 1
 		  
-# 		print(word_node_mapping)
-# 		print(word_node_mapping[0])
-# 		return 1
-		for i in range(n):
+		for i in range(n):                          #TC: O(N2*M)
 		    for j in range(i+1, n):
 		        word1, word2 = wordList[i], wordList[j]
 		        
@@ -38,10 +35,10 @@ class Solution:
     		        adj[word_node_mapping[word1]].append(word_node_mapping[word2])
     		        adj[word_node_mapping[word2]].append(word_node_mapping[word1])
     		        
-        queue = deque([(0, 0)])
-        shortest_dist = [float('inf')]*n
+        queue = deque([(0, 0)])                         # SC: O(n)
+        shortest_dist = [float('inf')]*n                # SC: O(n)
         shortest_dist[0] = 0
-        while queue:
+        while queue:                                    # TC: O(N + 2N^2)
             node, dist = queue.popleft()
             for adj_node in adj[node]:
                 if dist+1 < shortest_dist[adj_node]:
