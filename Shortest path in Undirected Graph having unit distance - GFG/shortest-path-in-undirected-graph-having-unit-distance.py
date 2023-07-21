@@ -11,12 +11,11 @@ class Solution:
         shortest_dist = [float('inf')]*n
         shortest_dist[src] = 0
         queue = deque([(src, 0)])
-        visited = [False]*n
         
         while queue:
             node, dist = queue.popleft()
             for adj_node in adj[node]:
-                if not visited[adj_node] and dist+1 < shortest_dist[adj_node]:
+                if dist+1 < shortest_dist[adj_node]:
                     shortest_dist[adj_node] = dist+1
                     queue.append((adj_node, dist+1))
                     
