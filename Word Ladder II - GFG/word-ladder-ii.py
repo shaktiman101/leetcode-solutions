@@ -49,9 +49,9 @@ class Solution:
                 res.append(path.copy())
                 
             for adj_node in adj[node]:
-                adj_node_path = path.copy()
                 if dist+1 <= shortest_dist[adj_node]:
                     # parent[node].append(adj_node)
+                    adj_node_path = path.copy()
                     adj_node_path.append(node_word_mapping[adj_node])
                     shortest_dist[adj_node] = dist+1
                     queue.append((adj_node, dist+1, adj_node_path))
