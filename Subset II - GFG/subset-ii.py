@@ -6,22 +6,22 @@ class Solution:
         n = len(nums)
         res = []
         
-        # def func(idx, subset):
-        #     if idx >= n:
-        #         res.append(subset.copy())
-        #         return
+        def func(idx, subset):
+            if idx >= n:
+                res.append(subset.copy())
+                return
         
-        #     subset.append(nums[idx])
-        #     func(idx+1, subset)
-        #     subset.pop()
+            subset.append(nums[idx])
+            func(idx+1, subset)
+            subset.pop()
                 
-        #     while idx<n-1 and nums[idx]==nums[idx+1]:
-        #         idx += 1
+            while idx<n-1 and nums[idx]==nums[idx+1]:
+                idx += 1
             
-        #     func(idx+1, subset)    
+            func(idx+1, subset)    
         
-        # func(0, [])
-        # return sorted(res)
+        func(0, [])
+        return sorted(res)
         
         def func(idx, subset):
             res.append(subset.copy())
