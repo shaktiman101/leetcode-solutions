@@ -19,37 +19,53 @@ class Solution:
                     
             return True
 
-        res = []
-        def solve(cur):
-            i, j = 0, 0
-            while i < n:
+        # res = []
+        # def solve(cur):
+        #     i, j = 0, 0
+        #     while i < n:
                 
-                flag = 0
-                while j < n:
+        #         flag = 0
+        #         while j < n:
                     
-                    if is_valid(i, j):
-                        chessboard[i][j] = 1
-                        cur.append(j+1)
-                        flag = 1
-                        break
-                    j += 1
+        #             if is_valid(i, j):
+        #                 chessboard[i][j] = 1
+        #                 cur.append(j+1)
+        #                 flag = 1
+        #                 break
+        #             j += 1
                 
-                if flag == 0:
-                    if not cur:
-                        return res
-                    j_prev = cur.pop()
-                    chessboard[i-1][j_prev-1] = 0
-                    j = j_prev
-                    i -= 1
-                elif len(cur) == n:
-                    res.append(cur.copy())
-                    j_prev = cur.pop()
-                    chessboard[i][j_prev-1] = 0
-                    j = j_prev
-                else:
-                    i += 1
-                    j = 0
-        solve([])
+        #         if flag == 0:
+        #             if not cur:
+        #                 return res
+        #             j_prev = cur.pop()
+        #             chessboard[i-1][j_prev-1] = 0
+        #             j = j_prev
+        #             i -= 1
+        #         elif len(cur) == n:
+        #             res.append(cur.copy())
+        #             j_prev = cur.pop()
+        #             chessboard[i][j_prev-1] = 0
+        #             j = j_prev
+        #         else:
+        #             i += 1
+        #             j = 0
+        # solve([])
+        # return res
+        
+        res = []
+        def solve(row, cur):
+            if len(cur) == n:
+                res.append(cur.copy())
+                return
+    
+            for col in range(n):
+                if is_valid(row, col):
+                    chessboard[row][col] = 1
+                    cur.append(col+1)
+                    solve(row+1, cur)
+                    cur.pop()
+                    chessboard[row][col] = 0
+        solve(0, [])
         return res
 
         
