@@ -84,7 +84,7 @@ class Solution:
         
         comp = 0
         for node in stoneNodes.keys():
-            if find_uparent(node) == node: #parent[node]:
+            if node == parent[node]:
                 comp += 1
              
         return n-comp
