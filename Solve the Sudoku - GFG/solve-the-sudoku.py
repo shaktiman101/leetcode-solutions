@@ -41,44 +41,45 @@ class Solution:
             return True
                 
         
-        # def backtrack(row, col):
-        #     if row == 9:
-        #         return True
+        def backtrack(row, col):
+            if row == 9:
+                return True
             
-        #     if col >= 9:
-        #         row = col//9
-        #         col = col%9
+            if col >= 9:
+                # row = col//9
+                # col = col%9
+                return backtrack(row+1, 0)
                 
-        #     if grid[row][col] != 0:
-        #         backtrack(row, col+1)
+            if grid[row][col] != 0:
+                return backtrack(row, col+1)
     
-        #     for num in range(1,10):
-        #         if is_safe(row, col, num):
-        #             grid[row][col] = num
-        #             if backtrack(row, col+1):
-        #                 return True
-        #             grid[row][col] = 0
+            for num in range(1,10):
+                if is_safe(row, col, num):
+                    grid[row][col] = num
+                    if backtrack(row, col+1):
+                        return True
+                    grid[row][col] = 0
                 
-        #     return False
+            return False
             
-        # return backtrack(0, 0)
+        return backtrack(0, 0)
         
-        def backtrack():
-            for i in range(9):
-                for j in range(9):
-                    if grid[i][j] != 0:
-                        continue
+        # def backtrack():
+        #     for i in range(9):
+        #         for j in range(9):
+        #             if grid[i][j] != 0:
+        #                 continue
                     
-                    for num in range(1,10):
-                        if is_safe(i,j,num):
-                            grid[i][j] = num
-                            if backtrack():
-                                return True
-                            grid[i][j] = 0
-                    return False
-            return True
+        #             for num in range(1,10):
+        #                 if is_safe(i,j,num):
+        #                     grid[i][j] = num
+        #                     if backtrack():
+        #                         return True
+        #                     grid[i][j] = 0
+        #             return False
+        #     return True
         
-        return backtrack()
+        # return backtrack()
         
     
     #Function to print grids of the Sudoku.    
