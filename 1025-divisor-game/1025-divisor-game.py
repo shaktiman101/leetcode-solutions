@@ -15,14 +15,19 @@ class Solution:
             return divisor
             
         # 1-Alice, 0-Bob
+        dp = [-1]*(n+1)
         def func(n, player):
             if n == 1:
                 if player:
                     return False
                 return True
             
+            if dp[n] != -1:
+                return dp[n]
+            
             for div in get_divisor(n):
-                return func(n-div, 1-player)
+                dp[n] = func(n-div, 1-player)
+                return dp[n]
         
         return func(n, 1)
             
