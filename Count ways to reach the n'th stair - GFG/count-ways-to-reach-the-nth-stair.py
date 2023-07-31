@@ -36,6 +36,16 @@ class Solution:
             return dp[stair]
             
         return func(0)
+        
+        # bottom-up approach
+        dp = [-1]*(n+1)
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 2
+        for i in range(2,n):
+            dp[i] = dp[i-1] + dp[i-2]
+            
+        return dp[n]
 
 
 #{ 
