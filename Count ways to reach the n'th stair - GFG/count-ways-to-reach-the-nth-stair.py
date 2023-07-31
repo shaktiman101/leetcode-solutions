@@ -38,6 +38,7 @@ class Solution:
         return func(0)
         
         # bottom-up approach
+        # TC: O(N), SC: O(N) for dp array
         dp = [-1]*(n+1)
         dp[0] = 0
         dp[1] = 1
@@ -46,6 +47,18 @@ class Solution:
             dp[i] = dp[i-1] + dp[i-2]
             
         return dp[n]
+        
+        # bottom-up approach optimized
+        # TC: O(N), SC: O(1)
+        prev2 = 0
+        prev1 = 1
+        curr = 0
+        for i in range(1, n):
+            curr = prev1 + prev2
+            prev2 = prev1
+            prev1 = curr
+            
+        return curr
 
 
 #{ 
