@@ -36,11 +36,11 @@ class Solution:
         # tabulation
         # TC: O(2N)
         # SC: O(2N) array space
-        # def rob(dp, st_idx, end_idx):
-        def rob(nums):
-            n = len(nums)
-            dp = [0]*n
-            st_idx, end_idx = 0, n-1
+        def rob(dp, st_idx, end_idx):
+        # def rob(nums):
+            # n = len(nums)
+            # dp = [0]*n
+            # st_idx, end_idx = 0, n-1
             dp[st_idx] = nums[st_idx]
             
             for i in range(st_idx+1, end_idx+1):
@@ -52,8 +52,8 @@ class Solution:
             
             return dp[end_idx]
             
-        # return max(rob([0]*n, 0, n-2), rob([0]*n, 1, n-1))
-        return max(rob(nums[1:]), rob(nums[:-1]) )
+        return max(rob([0]*n, 0, n-2), rob([0]*n, 1, n-1))
+        # return max(rob(nums[1:]), rob(nums[:-1]) )
     
         # recursive
         # def func(nums, idx):
