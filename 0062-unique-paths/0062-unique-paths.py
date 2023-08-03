@@ -36,10 +36,26 @@ class Solution:
         
 #         return func(0, 0)
 
-        dp = [[1]*n for _ in range(m)]
+        # bottom-up approach
+        # TC: O(m*n)
+        # SC: O(m*n)
+#         dp = [[1]*n for _ in range(m)]
+#         for i in range(1,m):
+#             for j in range(1,n):
+#                 dp[i][j] = dp[i][j-1]+dp[i-1][j]
         
+#         return dp[-1][-1]
+
+        
+        # space optimized bottom-up approach
+        # TC: O(m*n)
+        # SC: O(2*n)
+        prev_row = [1]*n
+        curr_row = [0]*n
+        curr_row[0] = 1
         for i in range(1,m):
             for j in range(1,n):
-                dp[i][j] = dp[i][j-1]+dp[i-1][j]
+                curr_row[j] = curr_row[j-1] + prev_row[j]  #dp[i][j-1]+dp[i-1][j]
+            prev_row = curr_row
         
-        return dp[-1][-1]
+        return prev_row[-1]
