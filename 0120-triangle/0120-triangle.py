@@ -30,9 +30,9 @@ class Solution:
             if dp[row][col] != -1:
                 return dp[row][col]
                 
-            sum1 = min_path_sum(row+1, col)
-            sum2 = min_path_sum(row+1, col+1)
-            dp[row][col] = triangle[row][col] + min(sum1, sum2)
+            sum1 = triangle[row][col] + min_path_sum(row+1, col)
+            sum2 = triangle[row][col] + min_path_sum(row+1, col+1)
+            dp[row][col] = min(sum1, sum2)
             return dp[row][col]
                         
         return min_path_sum(0,0)
