@@ -1,58 +1,61 @@
 class Solution:
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
-        # bottom-up: tabulation
         n = len(matrix)
-        dp = [[0]*n for _ in range(n)]
-        for j in range(n):
-            dp[0][j] = matrix[0][j]
-            
-        for i in range(1,n):
-            for j in range(n):
-                n1 = dp[i-1][j]
-                n2 = float('inf')
-                if j >= 1:
-                    n2 = dp[i-1][j-1]
-                n3 = float('inf')
-                if j < n-1:
-                    n3 = dp[i-1][j+1]
-                dp[i][j] = matrix[i][j] + min(n1, n2, n3)
-        return min(dp[-1])
         
-        # top-down: memoization solution
-        n = len(matrix)
+        # recursive approach
+        # TC: O(N)xO(3^N) = O(Nx3^N)
+        # SC: O(N)
+#         def func(row, col):
+#             if row >= n or col >= n or col < 0:
+#                 return float('inf')
+#             if row == n-1:
+#                 return matrix[n-1][col]
+            
+#             s1 = func(row+1, col-1)
+#             s2 = func(row+1, col)
+#             s3 = func(row+1, col+1)
+#             return matrix[row][col] + min(s1, s2, s3)
+            
+            
+#         min_ = float('inf')
+#         for i in range(n):
+#             min_ = min(min_, func(0,i))
+            
+#         return min_
+
+#         dp = [[-1]*n for _ in range(n)]
+#         def func(row, col):
+#             if row >= n or col >= n or col < 0:
+#                 return float('inf')
+#             if row == n-1:
+#                 return matrix[n-1][col]
+#             if dp[row][col] != -1:
+#                 return dp[row][col]
+            
+#             s1 = func(row+1, col-1)
+#             s2 = func(row+1, col)
+#             s3 = func(row+1, col+1)
+#             dp[row][col] = matrix[row][col] + min(s1, s2, s3)
+#             return dp[row][col]
+            
+            
+#         min_ = float('inf')
+#         for i in range(n):
+#             min_ = min(min_, func(0,i))
+            
+#         return min_
+    
         dp = [[0]*n for _ in range(n)]
-        def solve(row, col):
-            if col < 0 or col >= n:
-                return float('inf')
-            if row == 0:
-                return matrix[row][col]
-            if dp[row][col]:
-                return dp[row][col]
-            n1 = solve(row-1, col)
-            n2 = solve(row-1, col-1)
-            n3 = solve(row-1, col+1)
-            dp[row][col] = matrix[row][col]+ min(n1, n2, n3)
-            return dp[row][col]
-            
-        min_ = float('inf')
-        for j in range(n):
-            min_ = min(min_, solve(n-1, j))
-        return min_
+        
+        for i in range(n):
+            for j in range(n):
+                if i == 0:
+                    dp[i][j] = matrix[i][j]
+                    continue
+                
+                dp[i][j] = matrix[i][j] + min(float('inf') if j==0 else dp[i-1][j-1], dp[i-1][j], \
+                               float('inf') if j>=n-1 else dp[i-1][j+1])
+                
+        return min(dp[n-1])
     
     
-        # recursive solution
-        n = len(matrix)
-        def solve(row, col):
-            if col < 0 or col >= n:
-                return 101
-            if row == n-1:
-                return matrix[row][col]
-            n1 = solve(row+1, col)
-            n2 = solve(row+1, col-1)
-            n3 = solve(row+1, col+1)
-            return matrix[row][col] + min(n1, n2, n3)
-            
-        min_ = float('inf')
-        for j in range(n):
-            min_ = min(min_, solve(0, j))
-        return min_
