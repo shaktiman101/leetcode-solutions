@@ -23,30 +23,36 @@ class Solution:
             
 #         return min_
 
-#         dp = [[-1]*n for _ in range(n)]
-#         def func(row, col):
-#             if row >= n or col >= n or col < 0:
-#                 return float('inf')
-#             if row == n-1:
-#                 return matrix[n-1][col]
-#             if dp[row][col] != -1:
-#                 return dp[row][col]
+        # memoized
+        # TC: 
+        # SC: O(N^2) + O(N)
+        dp = [[""]*n for _ in range(n)]
+        def func(row, col):
+            if row >= n or col >= n or col < 0:
+                return float('inf')
+            if row == n-1:
+                return matrix[n-1][col]
+            if dp[row][col] != "":
+                return dp[row][col]
             
-#             s1 = func(row+1, col-1)
-#             s2 = func(row+1, col)
-#             s3 = func(row+1, col+1)
-#             dp[row][col] = matrix[row][col] + min(s1, s2, s3)
-#             return dp[row][col]
+            s1 = func(row+1, col-1)
+            s2 = func(row+1, col)
+            s3 = func(row+1, col+1)
+            dp[row][col] = matrix[row][col] + min(s1, s2, s3)
+            return dp[row][col]
             
             
-#         min_ = float('inf')
-#         for i in range(n):
-#             min_ = min(min_, func(0,i))
+        min_ = float('inf')
+        for i in range(n):
+            min_ = min(min_, func(0,i))
             
-#         return min_
+        return min_
     
+    
+        # bottom-up
+        # TC: O(N^2)+O(N)
+        # SC: O(N^2)
         dp = [[0]*n for _ in range(n)]
-        
         for i in range(n):
             for j in range(n):
                 if i == 0:
