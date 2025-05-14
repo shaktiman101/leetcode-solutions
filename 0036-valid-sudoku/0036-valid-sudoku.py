@@ -1,41 +1,26 @@
-# from collection import defaultdict
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        row_set = set()
-        col_set = set()
-        sub_boxes = {}
+        rows, cols = len(board), len(board[0])
         
-        def test(i,j):
-            print(i, j)
-            print(row_set)
-            print(col_set)
-            print(sub_boxes)
+        for row in range(rows):
+            row_nums = set()
+            col_nums = set()
+            if row%3 == 0:
+                box_nums = [set() for _ in range(3)]
             
-        for i in range(3):
-            for j in range(3):
-                sub_boxes[(i,j)]=set()
+            for col in range(cols):
+                if board[row][col] in row_nums:
+                    return False
+                if board[col][row] in col_nums:
+                    return False
+                if board[row][col] in box_nums[col//3]:
+                    return False
+                
+                if board[row][col] != ".":
+                    box_nums[col//3].add(board[row][col])
+                    row_nums.add(board[row][col])
+
+                if board[col][row] != '.':
+                    col_nums.add(board[col][row])
         
-        
-        for i in range(9):
-            row_set.clear()
-            col_set.clear()
-            for j in range(9):
-                if board[i][j] != '.':
-                    if board[i][j] in col_set:
-                        # test(i,j)
-                        return False
-                    col_set.add(board[i][j])
-                    if board[i][j] in sub_boxes[(i//3,j//3)]:
-                        # test(i,j)
-                        return False
-                    sub_boxes[(i//3,j//3)].add(board[i][j])
-                    
-                if board[j][i] != '.':
-                    if board[j][i] in row_set:
-                        # test(i,j)
-                        return False
-                    row_set.add(board[j][i])
-                    
-                    
         return True
-        
