@@ -1,72 +1,24 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-#         n = len(prices)
-#         if n < 2:
-#             return 0
-        
-#         smallest, largest = n-1, n-1
-#         d = {}
-#         for i in range(n-2, -1, -1):
-#             if prices[i] > prices[largest]:
-#                 largest = i
-#             if prices[i] < prices[smallest]:
-#                 smallest = i
-#             if smallest < largest:
-#                 d[i] = [smallest, largest]
-        
-#         smallest, largest = 0, 0
-#         for i in range(1, n):
-#             if prices[i] > prices[largest]:
-#                 largest = i
-#             if prices[i] < prices[smallest]:
-#                 smallest = i
-#             if smallest < largest:
-#                 d[i] = [smallest, largest]
-            
-#         max_profit = 0
-#         for _, v in d.items():
-#             max_profit = max(max_profit, prices[v[1]]-prices[v[0]])
-#         return max_profit
-
-        left = 0 #Buy
-        right = 1 #Sell
-        max_profit = 0
-        while right < len(prices):
-            currentProfit = prices[right] - prices[left] #our current Profit
-            if prices[left] < prices[right]:
-                max_profit =max(currentProfit,max_profit)
-            else:
-                left = right
-            right += 1
-        return max_profit  
-    
-    
         n = len(prices)
-        if n == 1:
-            return 0
-        
-        buy_day, sell_day = 0, 0
-        j = n-1
-        profit = float('-inf')
-        
-        buy_idx = [0]
-        for i in range(1, n-1):
-            if prices[i] < prices[buy_idx[-1]]:
-                buy_idx.append(i)
+        max_profit = 0
+
+        # trivial approach
+        # tc: O(N2)
+        # for buy_day in range(n):
+        #     for sell_day in range(buy_day+1, n):
+        #         if prices[buy_day] < prices[sell_day]:
+        #             profit = prices[sell_day] - prices[buy_day]
+        #             max_profit = max(max_profit, profit)
+        # return max_profit
+
+        cheapest_price = float('inf')
+        max_profit = 0
+
+        for cur_price in prices:
+            if cur_price < cheapest_price:
+                cheapest_price = cur_price
             else:
-                buy_idx.append(buy_idx[-1])
-        
-        sell_idx = [1]
-        for i in range(2, n):
-            if prices[i] > prices[sell_idx[-1]]:
-                sell_idx.append(i)
-            else:
-                sell_idx.append(sell_idx[-1])
-        
-        profit = float('-inf')
-        for buyi, selli in zip(buy_idx, sell_idx):
-            if buyi < selli and prices[selli]-prices[buyi] > profit:
-                profit = prices[selli]-prices[buyi]
-        
-        return max(0, profit)
-        
+                profit = cur_price - cheapest_price
+                max_profit = max(max_profit, profit)
+        return max_profit
