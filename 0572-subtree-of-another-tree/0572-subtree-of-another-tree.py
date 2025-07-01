@@ -6,52 +6,24 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-    #     if not subRoot:
-    #         return True
-    #     if not root:
-    #         return False
-
-    #     if self.check(root, subRoot):
-    #         return True
-
-    #     return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
-
-
-    # def check(self, root, subRoot):
-    #     if not root and not subRoot:
-    #         return True
         
-    #     if (root and not subRoot) or (not root and subRoot):
-    #         return False
-
-    #     if root.val == subRoot.val: 
-    #         left_subtree = self.check(root.left, subRoot.left)
-    #         right_subtree = self.check(root.right, subRoot.right)
-    #         return left_subtree and right_subtree
-        
-    #     return False
-        
-        # def check(root1, root2):
-        #     if root1 is None and root2 is None:
+        # def func(root, subRoot):
+        #     if not root and not subRoot:
         #         return True
-        #     if root1 is None or root2 is None:
+
+        #     if (not root and subRoot) or (root and not subRoot):
         #         return False
             
-        #     if root1.val == root2.val:
-        #         res1 = check(root1.left, root2.left)
-        #         res2 = check(root1.right, root2.right)
-        #         return res1 and res2
-
-        #     return False
-
-        # if root is None:
-        #     return False
-
-        # if check(root, subRoot):
-        #     return True
+        #     if root.val == subRoot.val:
+        #         l = func(root.left, subRoot.left)
+        #         r = func(root.right, subRoot.right)
+        #         if l and r:
+        #             return True
             
-            
-        # return self.isSubtree(root.right, subRoot) or self.isSubtree(root.right, subRoot)
+        #     return func(root.left, subRoot) or func(root.right, subRoot)
+
+        # return func(root, subRoot)
+
         if not subRoot:
             return True
         if not root:
@@ -74,4 +46,3 @@ class Solution:
             if self.check(root.left, subRoot.left) and self.check(root.right, subRoot.right):
                 return True
         return False
-            
